@@ -4,8 +4,41 @@
     <meta charset="UTF-8">
     <title>Calendar</title>
     <script src='data/schedule.js'></script>
+    <style>
+      #wrapper {
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+      }
+      .dayofweek {
+        background-color:lightblue;
+        border-left: solid 1px pink;
+        border-right: solid 1px pink;
+        padding: 20px;
+        text-align: center;
+        font-size: large;
+        font-weight: 600;
+      }
+      .event {
+        background-color: white;
+        border: solid 1px pink;
+        padding: 20px;
+        text-align: center;
+      }
+      h1 {
+        text-align:center;
+      }
+    </style>
   </head>
   <body>
+<h1>Social Calendar</h1>
+    <div id="wrapper">
+      <div class = "dayofweek">Monday</div>
+      <div class = "dayofweek">Tuesday</div>
+      <div class = "dayofweek">Wednesday</div>
+      <div class = "dayofweek">Thursday</div>
+      <div class = "dayofweek">Friday</div>
+    </div>
     <script src='client/main.js'></script>
+
   </body>
 </html>
