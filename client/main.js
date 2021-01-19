@@ -36,8 +36,8 @@ function renderUnits() {
         let challenge = weeklyUnits[weekday].challenge;
         let event = document.createElement('div');
         let goals = weeklyUnits[weekday].goals
-        let text = challenge + '<br>Goals: ';
-        goals.forEach(goal => text += goal)
+        let text = "<b>" + challenge + "</b><br>" + '<br>Goals: ';
+        goals.forEach(goal => text += '<br>' + goal)
 
         event.innerHTML = text;
         event.setAttribute('class', 'event');
