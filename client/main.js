@@ -44,6 +44,7 @@ function parseUnitsbyWeek(array) {
 
 function renderUnits() {
   let unitsByWeek = parseUnitsbyWeek(schedule);
+  console.log('unitsByWeek:', unitsByWeek);
   for (let week in unitsByWeek) {
     DAYSOFWEEK.forEach(weekday => {
       let weeklyUnits = unitsByWeek[week];
