@@ -2,6 +2,7 @@ class Calendar {
   //do something with the data here
   constructor(schedule) {
     this.schedule = schedule;
+    this.DAYSOFWEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   }
 
   parseDays() {
@@ -12,6 +13,15 @@ class Calendar {
 
   renderSchedule() {
     
+  }
+
+  renderDaysOfWeek() {
+    this.DAYSOFWEEK.forEach(day => {
+      let dayofweek = document.createElement('div');
+      dayofweek.setAttribute('class', 'dayofweek');
+      dayofweek.innerHTML = day;
+      document.getElementById('wrapper').appendChild(dayofweek);
+    });
   }
 }
 
@@ -48,9 +58,15 @@ class Week {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  let body = document.querySelector('body');
   const title = document.createElement('h1');
   title.innerText = 'Social Calendar';
-  document.querySelector('body').appendChild(title);
+  body.appendChild(title);
+  let wrapper = document.createElement('div');
+  wrapper.setAttribute('id', 'wrapper');
+  body.appendChild(wrapper);
+  document.getElementById('wrapper').setAttribute('style', 'display: grid;');
+  document.getElementById('wrapper').setAttribute('style', 'grid-template-columns: 20% 20% 20% 20% 20%;');
   // make AJAX call here....
   let request = new XMLHttpRequest();
   request.open('GET', 'http://slack-server-production.us-west-2.elasticbeanstalk.com/calendar/LA/40', true);
@@ -60,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let data = JSON.parse(this.response);
       console.log(data);
       let calendar = new Calendar(data);
+      calendar.renderDaysOfWeek();
     } else {
       console.log('Server error')
     }
