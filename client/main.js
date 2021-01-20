@@ -1,7 +1,17 @@
 class Calendar {
   //do something with the data here
   constructor(schedule) {
+    this.schedule = schedule;
+  }
 
+  parseDays() {
+    for (let day in this.schedule) {
+      
+    }
+  }
+
+  renderSchedule() {
+    
   }
 }
 
@@ -42,4 +52,23 @@ document.addEventListener('DOMContentLoaded', () => {
   title.innerText = 'Social Calendar';
   document.querySelector('body').appendChild(title);
   // make AJAX call here....
+  let request = new XMLHttpRequest();
+  request.open('GET', 'http://slack-server-production.us-west-2.elasticbeanstalk.com/calendar/LA/40', true);
+
+  request.onload = function() {
+    if (this.status >= 200 && this.status < 400) {
+      let data = JSON.parse(this.response);
+      console.log(data);
+      let calendar = new Calendar(data);
+    } else {
+      console.log('Server error')
+    }
+  }
+
+  request.onerror = function() {
+    console.log('Connection error')
+  }
+
+  request.send();
+
 });
