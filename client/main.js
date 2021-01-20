@@ -2,6 +2,23 @@
 // document.createElement creates an element that can be altered and then inserted into the DOM
 // document.body.appendChild places a node as a child under the body element
 
+let title = document.createElement('h1');
+title.innerHTML = 'Social Calendar';
+title.setAttribute('style', 'text-align:center;')
+document.body.appendChild(title);
+let wrapper = document.createElement('div');
+wrapper.setAttribute('id', 'wrapper');
+document.body.appendChild(wrapper);
+
+let DAYSOFWEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+
+DAYSOFWEEK.forEach(day => {
+  let dayofweek = document.createElement('div');
+  dayofweek.setAttribute('class', 'dayofweek');
+  dayofweek.innerHTML = day;
+  document.getElementById('wrapper').appendChild(dayofweek);
+});
+
 // Your schedule can be accessed through the global object "schedule"
 console.log(schedule);
 
@@ -26,7 +43,6 @@ function parseUnitsbyWeek(array) {
 }
 
 function renderUnits() {
-  let DAYSOFWEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   let unitsByWeek = parseUnitsbyWeek(schedule);
   for (let week in unitsByWeek) {
     DAYSOFWEEK.forEach(weekday => {
@@ -35,9 +51,9 @@ function renderUnits() {
       if (weeklyUnits[weekday]) {
         let challenge = weeklyUnits[weekday].challenge;
         let event = document.createElement('div');
-        let goals = weeklyUnits[weekday].goals
+        let goals = weeklyUnits[weekday].goals;
         let text = "<b>" + challenge + "</b><br>" + '<br>Goals: ';
-        goals.forEach(goal => text += '<br>' + goal)
+        goals.forEach(goal => text += '<br>' + goal);
 
         event.innerHTML = text;
         event.setAttribute('class', 'event');
@@ -53,4 +69,6 @@ function renderUnits() {
 }
 
 renderUnits();
+
+
 
