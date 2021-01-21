@@ -1,75 +1,77 @@
-// The following code appends a title to the page
-// document.createElement creates an element that can be altered and then inserted into the DOM
-// document.body.appendChild places a node as a child under the body element
+class Messages {
+  constructor(data) {
+    this.data = data;
 
-let title = document.createElement('h1');
-title.innerHTML = 'Social Calendar';
-title.setAttribute('style', 'text-align:center;')
-document.body.appendChild(title);
-let wrapper = document.createElement('div');
-wrapper.setAttribute('id', 'wrapper');
-document.body.appendChild(wrapper);
+    this.logMessages();
+  }
 
-let DAYSOFWEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  //Methods:
+  logMessages() {
+      for(let i = 0; i < this.data.length; i++){
+          let message =  document.createElement('div'); 
+          let name = document.createElement('div'); 
+          let date = document.createElement('div');
 
-DAYSOFWEEK.forEach(day => {
-  let dayofweek = document.createElement('div');
-  dayofweek.setAttribute('class', 'dayofweek');
-  dayofweek.innerHTML = day;
-  document.getElementById('wrapper').appendChild(dayofweek);
+          message.setAttribute('class', 'message');
+          name.setAttribute('class', 'name'); 
+          date.setAttribute('class', 'date');
+
+          name.innerText = this.data[i]['created_by']; 
+          message.innerText = this.data[i]['message'];
+          date.innerText = new Date(this.data[i]['created_at']).toLocaleString();
+
+          document.querySelector('#container').appendChild(name);
+          document.querySelector('#container').appendChild(date);
+          document.querySelector('#container').appendChild(message) 
+
+    // console.log(this.data[i]['message']);
+      }
+  }
+
+}
+
+document.querySelector('button').addEventListener('click', () => {
+
+const post = {
+  created_by : document.querySelector('#name').value,
+  message: document.querySelector('#msg').value,
+}
+//console.log(post);
+const request = new XMLHttpRequest();
+  request.onreadystatechange = () => {
+      if(request.readyState === 4 && request.status === 200){
+          console.log(JSON.parse(request.responseText));
+      }  
+  }
+  request.open('POST','https://curriculum-api.codesmith.io/messages',true)
+  request.setRequestHeader('Content-Type','application/json;charset=utf-8')
+  request.send(JSON.stringify(post))
+
+
+//   fetch({
+//     method: 'POST',
+//     URL: 'https://curriculum-api.codesmith.io/messages',
+//     body: JSON.stringify(post),
+//     headers: {
+//       'Content-Type': 'application/json;charset=utf-8'
+//     }
+//   })
+//     .then((data) => data.json())
+//     .then((data) => {
+//       console.log(data);
+//     });
+// });
+
 });
 
-// Your schedule can be accessed through the global object "schedule"
-console.log(schedule);
+//GET function. 
+fetch(`https://curriculum-api.codesmith.io/messages`)
+    .then((data) => data.json()) 
+    .then((data) => {
+        //console.log(data); 
+        new Messages(data);
+    }); 
 
-function parseUnitsbyWeek(array) {
-  let units = {};
+// console.log(messagesJSON);
 
-  array.forEach(unit => {
-    let week = unit.week;
-    let day = unit.day;
-    if (unit.week === 1) {
-      if (!units[week]) units[week] = {};
-      units[week][day] = unit;
-    } else if (unit.week === 2) {
-      if (!units[week]) units[week] = {};
-      units[week][day] = unit;
-    } else if (unit.week === 3) {
-      if (!units[week]) units[week] = {};
-      units[week][day] = unit;
-    }
-  })
-  return units;
-}
-
-function renderUnits() {
-  let unitsByWeek = parseUnitsbyWeek(schedule);
-  console.log('unitsByWeek:', unitsByWeek);
-  for (let week in unitsByWeek) {
-    DAYSOFWEEK.forEach(weekday => {
-      let weeklyUnits = unitsByWeek[week];
-
-      if (weeklyUnits[weekday]) {
-        let challenge = weeklyUnits[weekday].challenge;
-        let event = document.createElement('div');
-        let goals = weeklyUnits[weekday].goals;
-        let text = "<b>" + challenge + "</b><br>" + '<br>Goals: ';
-        goals.forEach(goal => text += '<br>' + goal);
-
-        event.innerHTML = text;
-        event.setAttribute('class', 'event');
-        document.getElementById('wrapper').appendChild(event);
-      } else {
-        let event = document.createElement('div');
-        event.innerHTML = 'no events scheduled';
-        event.setAttribute('class', 'event');
-        document.getElementById('wrapper').appendChild(event);
-      }
-    })
-  }
-}
-
-renderUnits();
-
-
-
+//console.log(new Date('2021-01-21T03:05:21.431Z'));

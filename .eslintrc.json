@@ -17,4 +17,8 @@
     "quotes": ["warn", "single"],
     "space-infix-ops": "warn"
   }
+<<<<<<< HEAD
 }
+=======
+} 
+>>>>>>> unit-5

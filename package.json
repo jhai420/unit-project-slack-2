@@ -4,15 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
+=======
+    "test": "mocha-phantomjs --ignore-ssl-errors=true --web-security=no --ssl-protocol=any ./index.html",
+>>>>>>> unit-5
     "start": "node server/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.12.3",
     "jquery": "^3.5.1"
   },
   "devDependencies": {
     "eslint": "^7.12.0"
+=======
+    "expect": "^1.20.2",
+    "express": "^4.13.3",
+    "jquery": "^2.2.4",
+    "mocha": "^2.5.3",
+    "mocha-phantomjs": "^4.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.12.1"
+>>>>>>> unit-5
   }
 }

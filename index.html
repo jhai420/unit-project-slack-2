@@ -1,35 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Calendar</title>
-    <script src='data/schedule.js'></script>
-    <style>
-      #wrapper {
-        display: grid;
-        grid-template-columns: 20% 20% 20% 20% 20%;
-      }
-      .dayofweek {
-        background-color:lightblue;
-        border-left: solid 1px pink;
-        border-right: solid 1px pink;
-        padding: 20px;
-        text-align: center;
-        font-size: large;
-        font-weight: 600;
-      }
-      .event {
-        background-color: white;
-        border: solid 1px pink;
-        padding: 20px;
-        text-align: center;
-      }
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chatroom</title>
+</head>
+<style>
+  #container {
+    width: 700px;
+    height: 700px;
+    border: 1px solid blue;
+    word-wrap: break-word;
+    overflow: scroll;
+    padding: 20px;
+  }
 
-    </style>
-  </head>
-  <body>    
+  .date {
+    display: inline;
+    font-size: 10px; 
+    padding-left: 5px; 
+  }
 
-    <script src='client/main.js'></script>
+  .name {
+    font-weight: 600;
+    display: inline;
+  }
 
-  </body>
+  .message {
+    padding-bottom: 10px;
+  }
+</style>
+<body>
+<h1>Online Chatroom</h1>
+<div id="container">
+  
+</div>
+
+<div>
+  <h1 id='chatbox'> 
+  <form>
+    <div>
+      <input name="name" id="name" placeholder="Name">
+      <input name="msg" id="msg" placeholder="Share your thoughts and feelings.">
+    </div>
+    <div>
+      <button type="button">Send Message</button>
+    </div>
+  </form>
+
+  </h1>
+</div>
+</body>
+<script src="./node_modules/expect/umd/expect.min.js"></script>
+<script src="./node_modules/mocha/mocha.js"></script>
+<script src="./test/polyfill.js"></script>
+<script src='./client/main.js'></script>
+
+<script>
+  // If called from Mocha Phantom-JS on the command line then add the test scripts
+  // to the end of the document.
+  if (window.callPhantom) {
+    mocha.setup('bdd')
+    addScript('./test/online-calendar-test.js');
+    addScript('./test/online-chatroom-test.js');
+    addScript('./test/runMocha.js');
+  }
+  
+  function addScript(path) {
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = path;
+    document.body.appendChild(js);
+  }
+</script>
+
 </html>
