@@ -31,15 +31,22 @@ class Messages {
 }
 
 document.querySelector('button').addEventListener('click', () => {
+  let name = document.querySelector('#name').value; 
+  let msg = document.querySelector('#msg').value; 
+  
+  if (name === "" || msg === "") {
+    return alert("Both fields must be filled out!"); 
+  }
 
 const post = {
-  created_by : document.querySelector('#name').value,
-  message: document.querySelector('#msg').value,
+  created_by : name,
+  message: msg 
 }
 //console.log(post);
 const request = new XMLHttpRequest();
   request.onreadystatechange = () => {
       if(request.readyState === 4 && request.status === 200){
+          location.reload();
           console.log(JSON.parse(request.responseText));
       }  
   }
@@ -65,12 +72,14 @@ const request = new XMLHttpRequest();
 });
 
 //GET function. 
-fetch(`https://curriculum-api.codesmith.io/messages`)
+const messagesGET = fetch(`https://curriculum-api.codesmith.io/messages`)
     .then((data) => data.json()) 
     .then((data) => {
         //console.log(data); 
         new Messages(data);
     }); 
+
+
 
 // console.log(messagesJSON);
 

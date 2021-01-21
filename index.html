@@ -2,51 +2,32 @@
 <head>
   <meta charset="UTF-8">
   <title>Chatroom</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<style>
-  #container {
-    width: 700px;
-    height: 700px;
-    border: 1px solid blue;
-    word-wrap: break-word;
-    overflow: scroll;
-    padding: 20px;
-  }
 
-  .date {
-    display: inline;
-    font-size: 10px; 
-    padding-left: 5px; 
-  }
-
-  .name {
-    font-weight: 600;
-    display: inline;
-  }
-
-  .message {
-    padding-bottom: 10px;
-  }
-</style>
 <body>
 <h1>Online Chatroom</h1>
-<div id="container">
-  
-</div>
+<div class="codesmith-img"><img src="codesmith.png"></div>
+<div class="main">
+  <div id="container">
+    
+  </div>
 
-<div>
-  <h1 id='chatbox'> 
-  <form>
-    <div>
-      <input name="name" id="name" placeholder="Name">
-      <input name="msg" id="msg" placeholder="Share your thoughts and feelings.">
-    </div>
-    <div>
-      <button type="button">Send Message</button>
-    </div>
-  </form>
+  <div>
+    <h1 id='chatbox'> 
+    <form>
+      <div>
+        <input name="name" id="name" placeholder="Name" required>
+        <input name="msg" id="msg" placeholder="Share your thoughts and feelings." required>
+      </div>
+      <div>
+        <button type="button">Send Message</button>
+      </div>
+    </form>
 
-  </h1>
+    </h1>
+  </div>
 </div>
 </body>
 <script src="./node_modules/expect/umd/expect.min.js"></script>
