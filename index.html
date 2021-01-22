@@ -7,28 +7,34 @@
 </head>
 
 <body>
-<h1>Online Chatroom</h1>
-<div class="codesmith-img"><img src="codesmith.png"></div>
-<div class="main">
-  <div id="container">
-    
-  </div>
+  <div class="wrap">
+    <div class="codesmith">
+      <div class="codesmith-img"><img src="codesmith.png" style="width:90%;" ></div>
+    </div>
+    <div class="main">
+      <h1>Online Chatroom</h1>
+      <div id="container">
 
-  <div>
-    <h1 id='chatbox'> 
-    <form>
-      <div>
-        <input name="name" id="name" placeholder="Name" required>
-        <input name="msg" id="msg" placeholder="Share your thoughts and feelings." required>
       </div>
-      <div>
-        <button type="button">Send Message</button>
-      </div>
-    </form>
 
-    </h1>
-  </div>
-</div>
+      <div>
+        <h1 id='chatbox'> 
+        <form>
+          <div>
+            <input name="name" id="name" placeholder="Name" required>
+            <input name="msg" id="msg" placeholder="Share your thoughts and feelings." required>
+          </div>
+          <div>
+            <button type="button">Send Message</button>
+          </div>
+        </form>
+        </h1>
+      </div>
+    </div><!-- .main div-->
+    <div class="codesmith">
+      <div class="codesmith-img"><img src="codesmith.png" style="width:90%;" ></div>
+    </div>
+  </div> <!-- .wrap div-->
 </body>
 <script src="./node_modules/expect/umd/expect.min.js"></script>
 <script src="./node_modules/mocha/mocha.js"></script>

@@ -6,21 +6,24 @@
 
   .wrap {
     display: grid;
-  }
-
-  .codesmith-img img{
-    width: 90%;
+    grid-template-columns: 25% 50% 25%;
   }
 
   .codesmith-img {
-    width: 24%;
-    height: 700px;
+    position: absolute;
+    top: 50%;
+    padding: 20px;
+  }
+
+  .codesmith {
+    position: relative;
+    height: 800px;
   }
 
   .main {
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 100%;
   }
 
   #container {

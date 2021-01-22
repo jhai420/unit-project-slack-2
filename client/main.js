@@ -1,36 +1,31 @@
-class Messages {
-  constructor(data) {
-    this.data = data;
-
-    this.logMessages();
-  }
-
-  //Methods:
-  logMessages() {
-      for(let i = 0; i < this.data.length; i++){
-          let message =  document.createElement('div'); 
-          let name = document.createElement('div'); 
-          let date = document.createElement('div');
-
-          message.setAttribute('class', 'message');
-          name.setAttribute('class', 'name'); 
-          date.setAttribute('class', 'date');
-
-          name.innerText = this.data[i]['created_by']; 
-          message.innerText = this.data[i]['message'];
-          date.innerText = new Date(this.data[i]['created_at']).toLocaleString();
-
-          document.querySelector('#container').appendChild(name);
-          document.querySelector('#container').appendChild(date);
-          document.querySelector('#container').appendChild(message) 
-
-    // console.log(this.data[i]['message']);
-      }
-  }
-
+let latestMessageTime;
+//console.log(latestMessageTime)
+    
+//GET function. 
+const messagesGET = () => {
+  fetch(`https://curriculum-api.codesmith.io/messages`)
+    .then((data) => data.json())
+    .then((data) => {
+      console.log(data.headers); 
+      //console.log(data[0]['created_at'])
+      // console.log(latestMessageTime)
+      if (!latestMessageTime || latestMessageTime !== data[0]['created_at']) {
+        // console.log(latestMessageTime)
+        latestMessageTime = data[0]['created_at'];
+        for (let i = 50; i >= 0; i--) {
+          logMessage(data[i]);
+        } 
+        scroll();
+      } 
+    })
+  .catch(error => console.log('Error: ', error)); 
 }
 
-document.querySelector('button').addEventListener('click', () => {
+const scroll = () => {
+  let chatBox = document.getElementById('container');
+  chatBox.scrollTop = chatBox.scrollHeig3ht;
+}
+const post = () => {
   let name = document.querySelector('#name').value; 
   let msg = document.querySelector('#msg').value; 
   
@@ -54,33 +49,61 @@ const request = new XMLHttpRequest();
   request.setRequestHeader('Content-Type','application/json;charset=utf-8')
   request.send(JSON.stringify(post))
 
+};     
 
-//   fetch({
-//     method: 'POST',
-//     URL: 'https://curriculum-api.codesmith.io/messages',
-//     body: JSON.stringify(post),
-//     headers: {
-//       'Content-Type': 'application/json;charset=utf-8'
-//     }
-//   })
-//     .then((data) => data.json())
-//     .then((data) => {
+function logMessage(msg) {
+      
+  // console.log(this.data[i]['message']);  
+  const message =  document.createElement('div'); 
+  const name = document.createElement('div'); 
+  const date = document.createElement('div');
+  
+  message.setAttribute('class', 'message');
+  name.setAttribute('class', 'name'); 
+  date.setAttribute('class', 'date');
+
+  name.innerText = msg['created_by']; 
+  message.innerText = msg['message'];
+  date.innerText = new Date(msg['created_at']).toLocaleString();
+
+  document.querySelector('#container').appendChild(name);
+  document.querySelector('#container').appendChild(date);
+  document.querySelector('#container').appendChild(message) 
+
+}
+
+// MAKE POST REQUEST ON CLICK:
+document.querySelector('button').addEventListener('click', post)
+
+messagesGET();
+setInterval(messagesGET, 5000);
+// function getNewMessages() {
+//   const request = new XMLHttpRequest();
+//   request.onreadystatechange = () => {
+//     if (request.readyState == 4 && request.status == 200) {
+//       let data = JSON.parse(request.responseText);
 //       console.log(data);
-//     });
-// });
+//     }
+//   }
+//   request.open('GET', 'https://curriculum-api.codesmith.io/messages', true);
+//   request.send();
+// }
 
-});
-
-//GET function. 
-const messagesGET = fetch(`https://curriculum-api.codesmith.io/messages`)
-    .then((data) => data.json()) 
-    .then((data) => {
-        //console.log(data); 
-        new Messages(data);
-    }); 
 
 
 
 // console.log(messagesJSON);
 
 //console.log(new Date('2021-01-21T03:05:21.431Z'));
+
+// SCROLL TO BOTTOM AFTER MESSAGES LOAD: 
+
+
+
+// GET MESSAGES FROM API 
+//can even check the date stamp to make sure it's the latest.  // Yaaaaas
+//CONST GETMESSAGES = () => {
+  // FETCH
+  // then: messages =>
+  // most recent = messages.slice(0,30);
+//}
